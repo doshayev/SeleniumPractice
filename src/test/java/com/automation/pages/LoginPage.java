@@ -2,6 +2,7 @@ package com.automation.pages;
 
 import com.automation.utilities.ConfigurationReader;
 import com.automation.utilities.Driver;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -31,8 +32,8 @@ public class LoginPage {
     passwordValue
     */
     public void login(String usernameValue, String passwordValue){
-        username.sendKeys(usernameValue);
-        password.sendKeys(passwordValue);
+        username.sendKeys(usernameValue, Keys.ENTER);
+        password.sendKeys(passwordValue, Keys.ENTER);
     }
     /*Method to login, version #2
     * Credential will be retrieved from configuration.properties file
