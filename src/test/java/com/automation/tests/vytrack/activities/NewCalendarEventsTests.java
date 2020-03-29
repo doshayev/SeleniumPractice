@@ -33,4 +33,31 @@ public class NewCalendarEventsTests extends AbstractTestBase {
         Assert.assertEquals(actualStartDate, expectedStartDate);
 
     }
+
+    /**
+     * 35 minutes until 4:05
+     * Test Case: Time difference
+     * Login as sales manager
+     * Go to Activities --> Calendar Events
+     * Click on Create Calendar Event
+     * Verify that difference between start and end time is 1 hour
+     **/
+
+    @Test
+    public void timeDifferenceTest(){
+        loginPage.login();
+
+        calendarEventsPage.navigateTo("Activities", "Calendar Events");
+
+        calendarEventsPage.clickToCreateCalendarEvent();
+
+        String startTime = calendarEventsPage.getStartTime(); //get start time
+        String endTime = calendarEventsPage.getEndTime(); //get end time
+        String format = "h:mm a";//format 5:15 AM for example
+
+        long actual = DateTimeUtilities.getTimeDifference(startTime, endTime, format);
+
+        Assert.assertEquals(actual, 1, "Time difference is not correct");
+
+    }
 }
