@@ -24,9 +24,18 @@ public abstract class AbstractTestBase {
     protected ExtentTest test;
 
     @BeforeTest
-    public void setupTest(){
+    public void setupTest() {
         report = new ExtentReports();
+        String reportPath = "";
+        if (System.getProperty("os.name").toLowerCase().contains("win")) {
+            reportPath = System.getProperty("user.dir") + "\\test-output\\report.html";
+        } else {
+            reportPath = System.getProperty("user.dir") + "/test-output/report.html";
+        }
+        htmlReporter = new ExtentHtmlReporter(reportPath);
+        report.attachReporter(htmlReporter);
     }
+
 
     @BeforeMethod
     public void setup() {
