@@ -27,6 +27,7 @@ public class NewLoginTests extends AbstractTestBase {
         LoginPage loginPage = new LoginPage();
         loginPage.login("wrong", "wrong");
         Assert.assertEquals(loginPage.getWarningMessageText(), "Invalid user name or password.");
-        BrowserUtils.getScreenshot("loginPage");
+        //take a screenshot
+        BrowserUtils.getScreenshot("warning_message");
     }
 }
