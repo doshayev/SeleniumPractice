@@ -3,9 +3,11 @@ package com.automation.tests.vytrack;
 import com.automation.utilities.BrowserUtils;
 import com.automation.utilities.ConfigurationReader;
 import com.automation.utilities.Driver;
+
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -30,18 +32,22 @@ public abstract class AbstractTestBase {
     public void setupTest() {
         report = new ExtentReports();
         String reportPath = "";
+        //location of report file
         if (System.getProperty("os.name").toLowerCase().contains("win")) {
             reportPath = System.getProperty("user.dir") + "\\test-output\\report.html";
         } else {
             reportPath = System.getProperty("user.dir") + "/test-output/report.html";
         }
+        //is a HTML report itself
         htmlReporter = new ExtentHtmlReporter(reportPath);
+        //add it to the reporter
         report.attachReporter(htmlReporter);
         htmlReporter.config().setReportName("VYTRACK Test Automation Results");
     }
+
     @AfterTest
-    public void tearDownTest(){
-        report.flush(); // to release the report
+    public void afterTest() {
+        report.flush();//to release a report
     }
 
     @BeforeMethod
@@ -61,9 +67,11 @@ public abstract class AbstractTestBase {
         if (iTestResult.getStatus() == ITestResult.FAILURE) {
             //screenshot will have a name of the test
             String screenshotPath = BrowserUtils.getScreenshot(iTestResult.getName());
-            test.addScreenCaptureFromPath(screenshotPath); // attach screenshot
-            test.fail(iTestResult.getName()); // attach test name that failed
-            test.fail(iTestResult.getThrowable()); // attach console output
+            test.fail(iTestResult.getName());//attach test name that failed
+
+            test.addScreenCaptureFromPath(screenshotPath);//attach screenshot
+
+            test.fail(iTestResult.getThrowable());//attach console output
         }
         Driver.closeDriver();
     }
