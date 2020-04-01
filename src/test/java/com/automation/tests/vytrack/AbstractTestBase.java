@@ -15,6 +15,8 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 
+import java.io.IOException;
+
 public abstract class AbstractTestBase {
     //will be visible in the subclass, regardless on subclass location (same package or no)
     protected WebDriverWait wait;
@@ -53,12 +55,15 @@ public abstract class AbstractTestBase {
 
 
     @AfterMethod
-    public void teardown(ITestResult iTestResult) {
+    public void teardown(ITestResult iTestResult) throws IOException {
         //ITestResult class describes the result of a test.
         //if test failed, take a screenshot
         if (iTestResult.getStatus() == ITestResult.FAILURE) {
             //screenshot will have a name of the test
-            BrowserUtils.getScreenshot(iTestResult.getName());
+            String screenshotPath = BrowserUtils.getScreenshot(iTestResult.getName());
+            test.addScreenCaptureFromPath(screenshotPath); // attach screenshot
+            test.fail(iTestResult.getName()); // attach test name that failed
+            test.fail(iTestResult.getThrowable()); // attach console output
         }
         Driver.closeDriver();
     }
