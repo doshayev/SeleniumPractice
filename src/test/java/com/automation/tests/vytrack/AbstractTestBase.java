@@ -3,9 +3,11 @@ package com.automation.tests.vytrack;
 import com.automation.utilities.BrowserUtils;
 import com.automation.utilities.ConfigurationReader;
 import com.automation.utilities.Driver;
+
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -14,14 +16,18 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
+
 import java.io.IOException;
+
 public abstract class AbstractTestBase {
     //will be visible in the subclass, regardless on subclass location (same package or no)
     protected WebDriverWait wait;
     protected Actions actions;
+
     protected ExtentReports report;
     protected ExtentHtmlReporter htmlReporter;
     protected ExtentTest test;
+
     @BeforeTest
     public void setupTest() {
         report = new ExtentReports();
@@ -38,10 +44,12 @@ public abstract class AbstractTestBase {
         report.attachReporter(htmlReporter);
         htmlReporter.config().setReportName("VYTRACK Test Automation Results");
     }
+
     @AfterTest
     public void afterTest() {
         report.flush();//to release a report
     }
+
     @BeforeMethod
     public void setup() {
         String URL = ConfigurationReader.getProperty("qa1");
@@ -50,6 +58,8 @@ public abstract class AbstractTestBase {
         wait = new WebDriverWait(Driver.getDriver(), 15);
         actions = new Actions(Driver.getDriver());
     }
+
+
     @AfterMethod
     public void teardown(ITestResult iTestResult) throws IOException {
         //ITestResult class describes the result of a test.
@@ -63,7 +73,7 @@ public abstract class AbstractTestBase {
             test.addScreenCaptureFromPath(screenshotPath, "Failed");//attach screenshot
             test.fail(iTestResult.getThrowable());//attach console output
         }
-        BrowserUtils.wait(1);
+        BrowserUtils.wait(2);
         Driver.closeDriver();
     }
 }
