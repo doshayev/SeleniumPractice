@@ -64,13 +64,32 @@ public class NewCalendarEventsTests extends AbstractTestBase {
 
     }
 
+    /**
+     * Test Case: Verify calendar events table
+     * Login as store manager
+     * Go to Activities --> Calendar Events
+     * And verify that column names displayed:
+     * |TITLE            |
+     * |CALENDAR         |
+     * |START            |
+     * |END              |
+     * |RECURRENT        |
+     * |RECURRENCE       |
+     * |INVITATION STATUS|
+     */
+
     @Test
     public void verifyColumnNamesTest(){
         loginPage.login();
         calendarEventsPage.navigateTo("Activities", "Calendar Events");
+
         List<String> expected = Arrays.asList("TITLE", "CALENDAR", "START", "END", "RECURRENT", "RECURRENCE", "INVITATION STATUS");
+
         Assert.assertEquals(calendarEventsPage.getColumnNames(), expected);
     }
+
+//    public Object[] eve
+
 
 
 }
