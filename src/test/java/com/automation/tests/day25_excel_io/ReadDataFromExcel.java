@@ -22,6 +22,23 @@ public class ReadDataFromExcel {
         //get string value
         String value = firstCell.getStringCellValue();
 
+        String secondCellValue = firstRow.getCell(1).getStringCellValue();
         System.out.println(value);
+        System.out.println(secondCellValue);
+
+        int lastCell = firstRow.getLastCellNum();
+        System.out.println("##########");
+        System.out.print("| ");
+
+        for (int i = 0; i < lastCell; i++) {
+            System.out.print(firstRow.getCell(i)+" | ");
+        }
+        int numberOfRows = workSheet.getLastRowNum();
+        int numberOfRows2 = workSheet.getPhysicalNumberOfRows();
+
+        System.out.println("\nIndex of last row = " + numberOfRows);
+        System.out.println("\nNumber Of Rows = " + numberOfRows2);
+
+
     }
 }
