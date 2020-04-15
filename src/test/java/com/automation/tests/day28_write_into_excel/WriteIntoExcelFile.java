@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 public class WriteIntoExcelFile {
     @Test
@@ -15,11 +16,23 @@ public class WriteIntoExcelFile {
         inputStream.close();
 
         Sheet sheet = workbook.getSheet("QA3-short");
-        Row row = sheet.getRow(1); // 2nd row
+        Row row = sheet.getRow(1); // 3nd row
         Cell cell = row.getCell(row.getLastCellNum() - 1);// last column
+
         System.out.println("Before:"+cell.getStringCellValue());
         cell.setCellValue("PASSED"); // changing N/A to PASSED
         System.out.println("After:"+cell.getStringCellValue());
+
+        Row firstRow = sheet.getRow(0); // get 1st row
+        Cell newCell = firstRow.createCell(row.getLastCellNum()); //create new cell
+        newCell.setCellValue("Date of Execution"); // give the name to this cell
+
+        // write date and time into into second row, last column
+        Row secondRow = sheet.getRow(1);
+        Cell newCell2 = secondRow.createCell(row.getLastCellNum()); // create a cell
+        newCell2.setCellValue(LocalDateTime.now()); // set current date and time into local new cell
+
+
 
         // I create if I want to write something into the file
         // den't forget to close excel file if you opened
